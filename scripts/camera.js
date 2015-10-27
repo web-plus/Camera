@@ -227,7 +227,13 @@
 	$('> div', elem).each( function() { 
 		allImg.push($(this).attr('data-src'));
 	});
-	
+
+	var onlyOneSlide = false;
+	if (allImg.length < 2) {
+		console.log('Only one');
+		onlyOneSlide = true;
+	}
+
 	var allLinks = new Array();
 	$('> div', elem).each( function() {
 		if($(this).attr('data-link')){
@@ -633,9 +639,12 @@
 		autoAdv = opts.autoAdvance;
 	}
 	
-	if(autoAdv==false){
+	if(autoAdv==false || onlyOneSlide==true){
 		elem.addClass('paused');
 	}
+
+	if (onlyOneSlide)
+		$('.camera_pag').hide();
 
 	if(isMobile() && opts.mobileNavHover!=''){
 		navHover = opts.mobileNavHover;
